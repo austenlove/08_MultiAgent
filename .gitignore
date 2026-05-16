@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.env
+.env.local
+.streamlit/secrets.toml
+backend/data/temp_*
+backend/data/reports/*.json
+!backend/data/reports/.gitkeep
+.DS_Store
