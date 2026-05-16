@@ -517,7 +517,7 @@ def render_chat() -> None:
         with chat_container:
             for m in st.session_state.messages:
                 with st.chat_message(m["role"]):
-                    st.markdown(m["content"])
+                    st.markdown(m["content"], unsafe_allow_html=True)
 
         # 2. 채팅 입력창 (항상 하단에 위치)
         if prompt := st.chat_input("문서에 대해 궁금한 점을 물어보세요"):
@@ -545,7 +545,8 @@ def render_chat() -> None:
                                 uploaded_document=st.session_state.get("uploaded_document"),
                                 user=st.session_state.username,
                             )
-                            st.markdown(response.reply)
+                            # AI 응답 내의 <br> 태그 등이 잘 렌더링되도록 처리
+                            st.markdown(response.reply, unsafe_allow_html=True)
                             st.session_state.messages.append(
                                 {"role": "assistant", "content": response.reply}
                             )
