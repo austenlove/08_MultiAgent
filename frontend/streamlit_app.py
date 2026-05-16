@@ -50,32 +50,37 @@ st.set_page_config(
 st.markdown(
     """
 <style>
-/* Global Theme Enforcement */
-.stApp, .stApp > div {
+/* 1. Global Reset - Light Theme Only */
+.stApp {
     background-color: #FFFFFF !important;
 }
 
-/* Global Text - Force Dark (#1A1A1A) */
-h1, h2, h3, h4, h5, h6, p, span, label, li, small, 
-.stMarkdown, [data-testid="stMarkdownContainer"] p,
-[data-testid="stSubheader"], [data-testid="stTitle"], [data-testid="stHeader"] {
+/* 2. Global Text Colors */
+body, .stApp, .stMarkdown, p, span, label, li, small {
     color: #1A1A1A !important;
-    -webkit-text-fill-color: #1A1A1A !important;
 }
 
-/* Sidebar Specifics */
-[data-testid="stSidebar"], [data-testid="stSidebar"] * {
+/* 3. Heading Colors */
+h1, h2, h3, h4, h5, h6, [data-testid="stHeader"], [data-testid="stSubheader"] {
+    color: #000000 !important;
+}
+
+/* 4. Sidebar Styles */
+[data-testid="stSidebar"] {
     background-color: #F8F9FA !important;
+    border-right: 1px solid #E0E0E0 !important;
+}
+[data-testid="stSidebar"] * {
     color: #1A1A1A !important;
-    -webkit-text-fill-color: #1A1A1A !important;
 }
 
-/* Black Buttons - Force White Text */
+/* 5. Button Styles (Black with White Text) */
 .stButton > button {
     background-color: #000000 !important;
     color: #FFFFFF !important;
-    border: none !important;
     border-radius: 8px !important;
+    border: none !important;
+    width: 100%;
 }
 .stButton > button * {
     color: #FFFFFF !important;
@@ -85,34 +90,22 @@ h1, h2, h3, h4, h5, h6, p, span, label, li, small,
     background-color: #333333 !important;
 }
 
-/* Global input & textarea fixes for Safari/Mobile */
+/* 6. Input & Chat Visibility */
 input, textarea, [data-testid="stChatInput"] textarea {
     background-color: #FFFFFF !important;
     color: #1A1A1A !important;
     -webkit-text-fill-color: #1A1A1A !important;
 }
-
-/* Chat input & bubbles */
 [data-testid="stChatInput"] {
+    background-color: #FFFFFF !important;
     border: 1px solid #E0E0E0 !important;
     border-radius: 12px !important;
-    background-color: #FFFFFF !important;
-}
-[data-testid="stChatInput"] div {
-    background-color: #FFFFFF !important;
-}
-/* Ensure the input placeholder is also visible */
-[data-testid="stChatInput"] textarea::placeholder {
-    color: #999999 !important;
-    -webkit-text-fill-color: #999999 !important;
 }
 [data-testid="stChatMessage"] {
     background-color: #F7F9FB !important;
     border: 1px solid #E9EDF1 !important;
-    border-radius: 12px !important;
-    margin-bottom: 10px;
 }
-[data-testid="stChatMessage"] p, [data-testid="stChatMessage"] span, [data-testid="stChatMessage"] div {
+[data-testid="stChatMessage"] * {
     color: #1A1A1A !important;
 }
 
