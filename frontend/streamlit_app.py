@@ -50,24 +50,72 @@ st.set_page_config(
 st.markdown(
     """
 <style>
-.stApp { background-color: #FFFFFF !important; color: #000000 !important; }
+/* Global styles */
+.stApp { background-color: #FFFFFF !important; color: #1A1A1A !important; font-family: 'Inter', sans-serif; }
 [data-testid="stSidebar"] { background-color: #F8F9FA !important; border-right: 1px solid #E0E0E0 !important; }
-h1, h2, h3, h4, h5, h6, p, li, span, label, div:not(.stButton *) { color: #000000 !important; }
-.stButton > button { background-color:#000 !important; color:#FFFFFF !important; border-radius:4px; border:none; width: 100%; }
-.stButton > button:hover { background-color:#333 !important; color:#FFFFFF !important; }
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 { color: #000000 !important; font-weight: 700 !important; }
+p, li, span, label { color: #333333 !important; }
+
+/* Custom containers */
+.main-card {
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    margin-bottom: 20px;
+}
+
+/* Buttons */
+.stButton > button {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+    border-radius: 8px !important;
+    border: none !important;
+    padding: 10px 20px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+.stButton > button:hover {
+    background-color: #333333 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
 .stButton > button p { color: #FFFFFF !important; }
-[data-testid="stChatInput"] { border:2px solid #000 !important; border-radius:8px !important; background-color:#FFF !important; }
-table { width:100%; border-collapse:collapse; margin:1.5rem 0; }
-th { background:#000 !important; color:#FFF !important; padding:12px; border:1px solid #000; text-align:left; }
-td { padding:12px; border:1px solid #E0E0E0; color:#000 !important; }
-tr:nth-child(even) { background-color:#F9F9F9; }
-[data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3, [data-testid="stSidebar"] p, [data-testid="stSidebar"] span { color: #000000 !important; }
-.validation-warn { background:#FFF8E1; border-left:4px solid #FFB300; padding:10px 14px; border-radius:4px; margin: 8px 0; }
-.validation-ok { background:#E8F5E9; border-left:4px solid #2E7D32; padding:10px 14px; border-radius:4px; margin: 8px 0; }
-.history-row { padding:6px 10px; border-bottom:1px solid #EEE; }
-.badge-pass { background:#2E7D32; color:#FFF; padding:2px 8px; border-radius:10px; font-size:11px; }
-.badge-fail { background:#C62828; color:#FFF; padding:2px 8px; border-radius:10px; font-size:11px; }
-.badge-info { background:#455A64; color:#FFF; padding:2px 8px; border-radius:10px; font-size:11px; }
+
+/* Chat input */
+[data-testid="stChatInput"] {
+    border: 1px solid #E0E0E0 !important;
+    border-radius: 12px !important;
+    background-color: #FFFFFF !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
+}
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; border-radius: 8px; overflow: hidden; }
+th { background: #000000 !important; color: #FFFFFF !important; padding: 14px; text-align: left; }
+td { padding: 12px; border: 1px solid #F0F0F0; color: #333 !important; }
+tr:nth-child(even) { background-color: #FAFAFA; }
+
+/* Badges & Alerts */
+.validation-warn { background: #FFF9C4; border-left: 4px solid #FBC02D; padding: 12px 16px; border-radius: 8px; margin: 12px 0; color: #5D4037 !important; }
+.validation-ok { background: #E8F5E9; border-left: 4px solid #43A047; padding: 12px 16px; border-radius: 8px; margin: 12px 0; color: #1B5E20 !important; }
+.history-row { padding: 10px; border-bottom: 1px solid #F0F0F0; transition: background 0.2s; }
+.history-row:hover { background: #F8F9FA; }
+.badge-pass { background: #43A047; color: #FFFFFF; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.badge-fail { background: #E53935; color: #FFFFFF; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.badge-info { background: #546E7A; color: #FFFFFF; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+
+/* Sidebar user info */
+.sidebar-user { background: #000; color: #FFF; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #F1F1F1; }
+::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
 </style>
 """,
     unsafe_allow_html=True,
@@ -337,80 +385,121 @@ def _render_history_sidebar() -> None:
 
 # ── 메인 채팅 화면 ─────────────────────────────────────────────────────────
 def render_chat() -> None:
+    # ── 사이드바 ──────────────────────────────────────────────────────────────
     with st.sidebar:
-        st.markdown(f"👤 **{st.session_state.username}**")
+        st.markdown(
+            f"<div class='sidebar-user'>👤 <b>{st.session_state.username}</b>님 환영합니다</div>",
+            unsafe_allow_html=True
+        )
         if st.button("로그아웃", use_container_width=True):
             for key in list(st.session_state.keys()):
                 del st.session_state[key]
             st.rerun()
-        st.divider()
-
-        st.subheader("📄 참고 문서 업로드")
-        uploaded_file = st.file_uploader(
-            "TXT / PDF / DOCX 파일을 업로드하세요",
-            type=["txt", "pdf", "docx"],
-            key="doc_uploader",
-            help="업로드한 문서는 분석의 최우선 입력으로 사용됩니다.",
-        )
-        if uploaded_file is not None and uploaded_file.name != st.session_state.uploaded_filename:
-            with st.spinner("문서 텍스트 추출 중..."):
-                text = _extract_text(uploaded_file)
-            st.session_state.uploaded_document = text
-            st.session_state.uploaded_filename = uploaded_file.name
-            st.success(f"✅ **{uploaded_file.name}** 업로드 완료")
-
-            with st.spinner("멀티에이전트가 자동 요약 생성 중..."):
-                summary_prompt = (
-                    f"새로 업로드된 문서 '{uploaded_file.name}' 의 주요 구성과 핵심 내용을 "
-                    "표(Table) 형태로 정리해서 알려줘."
-                )
-                response = run_pipeline(
-                    user_message=summary_prompt,
-                    history=[ChatMessage(**m) for m in st.session_state.messages if m["role"] in {"user", "assistant"}],
-                    uploaded_document=text,
-                    user=st.session_state.username,
-                )
-                st.session_state.messages.append({"role": "user", "content": f"📎 문서 업로드: {uploaded_file.name}"})
-                st.session_state.messages.append({"role": "assistant", "content": response.reply})
-                st.session_state.last_response = _to_response_dict(response)
-                _refresh_history()
+        
+        if st.button("💬 대화 초기화", use_container_width=True):
+            st.session_state.messages = []
+            st.session_state.last_response = None
             st.rerun()
-
-        if st.session_state.uploaded_filename:
-            st.info(f"📎 현재 문서: **{st.session_state.uploaded_filename}**")
-            if st.button("문서 제거", use_container_width=True):
-                st.session_state.uploaded_document = None
-                st.session_state.uploaded_filename = None
-                st.rerun()
 
         st.divider()
         _render_history_sidebar()
 
-    st.title("🤖 MultiAgent 기술문서 분석 봇")
-    st.caption("Planner → Researcher → Analyst → Validator → Writer 의 단계별 협업 결과를 보여줍니다.")
+    # ── 메인 영역 ─────────────────────────────────────────────────────────────
+    st.markdown("## 🤖 MultiAgent 기술문서 분석 서비스")
+    
+    # 50:50 레이아웃 분할
+    col_left, col_right = st.columns([1, 1], gap="medium")
 
-    left, right = st.columns([3, 2], gap="large")
+    # [좌측] 문서 업로드 및 분석 결과
+    with col_left:
+        st.subheader("📄 문서 관리 및 분석")
+        
+        with st.container(border=True):
+            uploaded_file = st.file_uploader(
+                "분석할 TXT / PDF / DOCX 파일을 선택하세요",
+                type=["txt", "pdf", "docx"],
+                key="doc_uploader",
+                label_visibility="collapsed"
+            )
+            
+            if uploaded_file is not None and uploaded_file.name != st.session_state.uploaded_filename:
+                with st.spinner("문서에서 텍스트를 추출하고 분석 중입니다..."):
+                    text = _extract_text(uploaded_file)
+                    st.session_state.uploaded_document = text
+                    st.session_state.uploaded_filename = uploaded_file.name
+                    
+                    # 자동 요약 프롬프트 실행
+                    summary_prompt = (
+                        f"새로 업로드된 문서 '{uploaded_file.name}' 의 주요 구성과 핵심 내용을 "
+                        "표(Table) 형태로 정리해서 알려줘."
+                    )
+                    response = run_pipeline(
+                        user_message=summary_prompt,
+                        history=[ChatMessage(**m) for m in st.session_state.messages if m["role"] in {"user", "assistant"}],
+                        uploaded_document=text,
+                        user=st.session_state.username,
+                    )
+                    st.session_state.messages.append({"role": "user", "content": f"📎 문서 업로드: {uploaded_file.name}"})
+                    st.session_state.messages.append({"role": "assistant", "content": response.reply})
+                    st.session_state.last_response = _to_response_dict(response)
+                    _refresh_history()
+                    st.rerun()
 
-    with left:
-        st.subheader("💬 대화")
-        chat_box = st.container(height=520)
-        with chat_box:
+            if st.session_state.uploaded_filename:
+                st.success(f"📎 현재 문서: **{st.session_state.uploaded_filename}**")
+                if st.button("🗑️ 문서 제거", use_container_width=True):
+                    st.session_state.uploaded_document = None
+                    st.session_state.uploaded_filename = None
+                    st.rerun()
+            else:
+                st.info("왼쪽 상단의 업로드 버튼을 통해 문서를 추가하세요.")
+
+        st.divider()
+        
+        # 분석 결과 탭 (좌측 배치)
+        resp = st.session_state.last_response or {}
+        tab_report, tab_validation, tab_trace = st.tabs(
+            ["📋 분석 리포트", "✅ 검증 결과", "🛠️ 에이전트 Trace"]
+        )
+        with tab_report:
+            _render_doc_report(resp)
+        with tab_validation:
+            _render_validation(resp.get("validation_result"))
+        with tab_trace:
+            _render_trace(resp)
+
+    # [우측] 채팅 인터페이스
+    with col_right:
+        st.subheader("💬 실시간 대화")
+        
+        # 채팅 내역 표시 영역 (스크롤 가능하도록 컨테이너 사용)
+        chat_container = st.container(height=650)
+        
+        # 1. 기존 메시지 렌더링 (루프)
+        with chat_container:
             for m in st.session_state.messages:
                 with st.chat_message(m["role"]):
                     st.markdown(m["content"])
 
-        if prompt := st.chat_input("문서 분석 요청 또는 질문을 입력하세요"):
-            st.session_state.messages.append({"role": "user", "content": prompt})
-            with chat_box:
+        # 2. 채팅 입력창 (항상 하단에 위치)
+        if prompt := st.chat_input("문서에 대해 궁금한 점을 물어보세요"):
+            # 사용자 메시지 즉시 표시
+            with chat_container:
                 with st.chat_message("user"):
                     st.markdown(prompt)
+                
+                # 어시스턴트 응답 생성 및 표시
                 with st.chat_message("assistant"):
-                    with st.spinner("멀티에이전트가 작업 중..."):
+                    with st.spinner("멀티에이전트가 답변을 준비 중입니다..."):
+                        # 세션에 메시지 선행 추가 (히스토리 포함용)
+                        st.session_state.messages.append({"role": "user", "content": prompt})
+                        
                         history_objs = [
                             ChatMessage(**m)
                             for m in st.session_state.messages[:-1]
                             if m["role"] in {"user", "assistant"}
                         ]
+                        
                         try:
                             response = run_pipeline(
                                 user_message=prompt,
@@ -423,28 +512,18 @@ def render_chat() -> None:
                                 {"role": "assistant", "content": response.reply}
                             )
                             st.session_state.last_response = _to_response_dict(response)
+                            
                             if response.validation_result and not response.validation_result.passed:
-                                st.warning(
-                                    "내부 검증 일부가 통과하지 못했습니다. 우측 패널에서 자세한 항목을 확인하세요."
-                                )
+                                st.warning("⚠️ 내부 검증이 일부 통과하지 못했습니다. 좌측 패널을 확인하세요.")
+                            
                             _refresh_history()
-                        except Exception as e:  # noqa: BLE001
-                            err = f"파이프라인 실행 중 오류: {e}"
-                            st.error(err)
-                            st.session_state.messages.append({"role": "assistant", "content": f"❌ {err}"})
+                        except Exception as e:
+                            err_msg = f"에러가 발생했습니다: {str(e)}"
+                            st.error(err_msg)
+                            st.session_state.messages.append({"role": "assistant", "content": f"❌ {err_msg}"})
+            
+            # 렌더링 완료 후 상태 반영을 위해 재실행 (메시지 리스트 동기화)
             st.rerun()
-
-    with right:
-        resp = st.session_state.last_response or {}
-        tab_report, tab_validation, tab_trace = st.tabs(
-            ["📋 분석 리포트", "✅ 검증 결과", "🛠️ 에이전트 Trace"]
-        )
-        with tab_report:
-            _render_doc_report(resp)
-        with tab_validation:
-            _render_validation(resp.get("validation_result"))
-        with tab_trace:
-            _render_trace(resp)
 
 
 # ── 진입점 ────────────────────────────────────────────────────────────────
