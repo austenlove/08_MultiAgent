@@ -1,10 +1,10 @@
 services:
   backend:
     build:
-      context: ../backend
+      context: ..
       dockerfile: Dockerfile
-    image: multiagent-backend:latest
-    container_name: multiagent-backend
+    image: multiagent:latest
+    container_name: multiagent
     ports:
       - "8000:8000"
     env_file:
@@ -20,3 +20,14 @@ services:
       # 에이전트별 시스템 프롬프트 — 컨테이너 재빌드 없이 수정 가능 (요구사항 1)
       - ../backend/prompts:/app/prompts:ro
     restart: unless-stopped
+
+  ngrok:
+    image: ngrok/ngrok:latest
+    restart: unless-stopped
+    command:
+      - "http"
+      - "app:8000" # 위에서 정의한 app 서비스의 8000 포트로 연결
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+    depends_on:
+      - app
