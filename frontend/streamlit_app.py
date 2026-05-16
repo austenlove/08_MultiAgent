@@ -105,13 +105,21 @@ div[data-testid="stMarkdownContainer"] p, span, .stTextArea textarea, .stTextInp
     background-color: #FFFFFF !important;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
 }
+[data-testid="stChatInput"] textarea {
+    color: #1A1A1A !important;
+    background-color: #FFFFFF !important;
+}
+/* Ensure the input placeholder is also visible */
+[data-testid="stChatInput"] textarea::placeholder {
+    color: #999999 !important;
+}
 [data-testid="stChatMessage"] {
     background-color: #F7F9FB !important;
     border: 1px solid #E9EDF1 !important;
     border-radius: 12px !important;
     margin-bottom: 10px;
 }
-[data-testid="stChatMessage"] p {
+[data-testid="stChatMessage"] p, [data-testid="stChatMessage"] span, [data-testid="stChatMessage"] div {
     color: #1A1A1A !important;
 }
 
