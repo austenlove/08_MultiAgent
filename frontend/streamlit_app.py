@@ -146,8 +146,9 @@ tr:nth-child(even) { background-color: #FAFAFA; }
 .badge-fail { background: #E53935; color: #FFFFFF; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
 .badge-info { background: #546E7A; color: #FFFFFF; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
 
-/* Sidebar user info */
-.sidebar-user { background: #000000; color: #FFFFFF; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
+/* Sidebar user info - text style */
+.sidebar-user { color: #1A1A1A !important; padding: 10px 5px; margin-bottom: 10px; font-size: 1.1rem; border-bottom: 1px solid #E0E0E0; }
+.sidebar-user b { color: #000000; }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
@@ -426,7 +427,7 @@ def render_chat() -> None:
     # ── 사이드바 ──────────────────────────────────────────────────────────────
     with st.sidebar:
         st.markdown(
-            f"<div class='sidebar-user'>👤 <b>{st.session_state.username}</b>님 환영합니다</div>",
+            f"<div class='sidebar-user'>👤 <b>{st.session_state.username}</b>님, 환영합니다</div>",
             unsafe_allow_html=True
         )
         if st.button("로그아웃", use_container_width=True):
