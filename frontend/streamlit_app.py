@@ -126,8 +126,8 @@ input, textarea, [data-testid="stChatInput"] textarea {
 }
 
 /* Tables */
-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; border-radius: 8px; overflow: hidden; border: 1px solid #CCCCCC; }
-th { background-color: #F8F9FA !important; color: #000000 !important; padding: 12px; text-align: left; border: 1px solid #CCCCCC !important; border-bottom: 2px solid #999999 !important; }
+table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; border: 2px solid #999999 !important; border-radius: 4px; }
+th { background-color: #F1F3F5 !important; color: #000000 !important; padding: 12px; text-align: left; border: 1px solid #CCCCCC !important; }
 td { padding: 12px; border: 1px solid #CCCCCC !important; color: #333333 !important; }
 tr:nth-child(even) { background-color: #FAFAFA; }
 
