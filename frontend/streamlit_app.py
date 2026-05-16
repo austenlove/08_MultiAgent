@@ -50,13 +50,25 @@ st.set_page_config(
 st.markdown(
     """
 <style>
-/* Global styles */
+/* Global styles & Theme Enforcement */
 .stApp { background-color: #FFFFFF !important; color: #1A1A1A !important; font-family: 'Inter', sans-serif; }
 [data-testid="stSidebar"] { background-color: #F8F9FA !important; border-right: 1px solid #E0E0E0 !important; }
 
-/* Typography */
-h1, h2, h3, h4, h5, h6 { color: #000000 !important; font-weight: 700 !important; }
-p, li, span, label { color: #333333 !important; }
+/* Force light theme text colors for all common elements */
+.stMarkdown, .stText, .stCaption, .stSubheader, .stTitle, .stHeader, label, 
+div[data-testid="stMarkdownContainer"] p, span, .stTextArea textarea, .stTextInput input {
+    color: #1A1A1A !important;
+}
+
+/* Sidebar specific text fixes */
+[data-testid="stSidebar"] .stMarkdown p, 
+[data-testid="stSidebar"] label, 
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: #1A1A1A !important;
+}
 
 /* Custom containers */
 .main-card {
@@ -77,6 +89,7 @@ p, li, span, label { color: #333333 !important; }
     padding: 10px 20px !important;
     font-weight: 600 !important;
     transition: all 0.2s ease !important;
+    width: 100%;
 }
 .stButton > button:hover {
     background-color: #333333 !important;
@@ -85,18 +98,43 @@ p, li, span, label { color: #333333 !important; }
 }
 .stButton > button p { color: #FFFFFF !important; }
 
-/* Chat input */
+/* Chat input & bubbles */
 [data-testid="stChatInput"] {
     border: 1px solid #E0E0E0 !important;
     border-radius: 12px !important;
     background-color: #FFFFFF !important;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
 }
+[data-testid="stChatMessage"] {
+    background-color: #F7F9FB !important;
+    border: 1px solid #E9EDF1 !important;
+    border-radius: 12px !important;
+    margin-bottom: 10px;
+}
+[data-testid="stChatMessage"] p {
+    color: #1A1A1A !important;
+}
+
+/* Tabs styling */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+}
+.stTabs [data-baseweb="tab-list"] button {
+    background-color: #F1F3F5 !important;
+    border-radius: 8px 8px 0 0 !important;
+    color: #495057 !important;
+    padding: 8px 16px !important;
+}
+.stTabs [data-baseweb="tab-list"] button[aria-selected="true"] {
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+    border-bottom: 2px solid #000000 !important;
+}
 
 /* Tables */
 table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; border-radius: 8px; overflow: hidden; }
 th { background: #000000 !important; color: #FFFFFF !important; padding: 14px; text-align: left; }
-td { padding: 12px; border: 1px solid #F0F0F0; color: #333 !important; }
+td { padding: 12px; border: 1px solid #F0F0F0; color: #333333 !important; }
 tr:nth-child(even) { background-color: #FAFAFA; }
 
 /* Badges & Alerts */
@@ -109,13 +147,13 @@ tr:nth-child(even) { background-color: #FAFAFA; }
 .badge-info { background: #546E7A; color: #FFFFFF; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
 
 /* Sidebar user info */
-.sidebar-user { background: #000; color: #FFF; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
+.sidebar-user { background: #000000; color: #FFFFFF; padding: 15px; border-radius: 10px; margin-bottom: 20px; text-align: center; }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #F1F1F1; }
-::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: #555; }
+::-webkit-scrollbar-thumb { background: #888888; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #555555; }
 </style>
 """,
     unsafe_allow_html=True,
