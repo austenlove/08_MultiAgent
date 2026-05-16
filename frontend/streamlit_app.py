@@ -98,6 +98,13 @@ div[data-testid="stMarkdownContainer"] p, span, .stTextArea textarea, .stTextInp
 }
 .stButton > button p { color: #FFFFFF !important; }
 
+/* Global input & textarea fixes for Safari/Mobile */
+input, textarea, [data-testid="stChatInput"] textarea {
+    background-color: #FFFFFF !important;
+    color: #1A1A1A !important;
+    -webkit-text-fill-color: #1A1A1A !important; /* Safari text color fix */
+}
+
 /* Chat input & bubbles */
 [data-testid="stChatInput"] {
     border: 1px solid #E0E0E0 !important;
@@ -105,13 +112,13 @@ div[data-testid="stMarkdownContainer"] p, span, .stTextArea textarea, .stTextInp
     background-color: #FFFFFF !important;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
 }
-[data-testid="stChatInput"] textarea {
-    color: #1A1A1A !important;
+[data-testid="stChatInput"] div {
     background-color: #FFFFFF !important;
 }
 /* Ensure the input placeholder is also visible */
 [data-testid="stChatInput"] textarea::placeholder {
     color: #999999 !important;
+    -webkit-text-fill-color: #999999 !important;
 }
 [data-testid="stChatMessage"] {
     background-color: #F7F9FB !important;
