@@ -50,59 +50,46 @@ st.set_page_config(
 st.markdown(
     """
 <style>
-/* Global styles & Theme Enforcement */
-.stApp { background-color: #FFFFFF !important; color: #1A1A1A !important; font-family: 'Inter', sans-serif; }
-[data-testid="stSidebar"] { background-color: #F8F9FA !important; border-right: 1px solid #E0E0E0 !important; }
+/* Global Theme Enforcement */
+.stApp, .stApp > div {
+    background-color: #FFFFFF !important;
+}
 
-/* Force light theme text colors for all common elements */
-.stMarkdown, .stText, .stCaption, .stSubheader, .stTitle, .stHeader, label, 
-div[data-testid="stMarkdownContainer"] p, span, .stTextArea textarea, .stTextInput input {
+/* Global Text - Force Dark (#1A1A1A) */
+h1, h2, h3, h4, h5, h6, p, span, label, li, small, 
+.stMarkdown, [data-testid="stMarkdownContainer"] p,
+[data-testid="stSubheader"], [data-testid="stTitle"], [data-testid="stHeader"] {
     color: #1A1A1A !important;
+    -webkit-text-fill-color: #1A1A1A !important;
 }
 
-/* Sidebar specific text fixes */
-[data-testid="stSidebar"] .stMarkdown p, 
-[data-testid="stSidebar"] label, 
-[data-testid="stSidebar"] span,
-[data-testid="stSidebar"] h1,
-[data-testid="stSidebar"] h2,
-[data-testid="stSidebar"] h3 {
+/* Sidebar Specifics */
+[data-testid="stSidebar"], [data-testid="stSidebar"] * {
+    background-color: #F8F9FA !important;
     color: #1A1A1A !important;
+    -webkit-text-fill-color: #1A1A1A !important;
 }
 
-/* Custom containers */
-.main-card {
-    background: #FFFFFF;
-    border: 1px solid #EAEAEA;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-    margin-bottom: 20px;
-}
-
-/* Buttons */
+/* Black Buttons - Force White Text */
 .stButton > button {
     background-color: #000000 !important;
     color: #FFFFFF !important;
-    border-radius: 8px !important;
     border: none !important;
-    padding: 10px 20px !important;
-    font-weight: 600 !important;
-    transition: all 0.2s ease !important;
-    width: 100%;
+    border-radius: 8px !important;
+}
+.stButton > button * {
+    color: #FFFFFF !important;
+    -webkit-text-fill-color: #FFFFFF !important;
 }
 .stButton > button:hover {
     background-color: #333333 !important;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-.stButton > button p { color: #FFFFFF !important; }
 
 /* Global input & textarea fixes for Safari/Mobile */
 input, textarea, [data-testid="stChatInput"] textarea {
     background-color: #FFFFFF !important;
     color: #1A1A1A !important;
-    -webkit-text-fill-color: #1A1A1A !important; /* Safari text color fix */
+    -webkit-text-fill-color: #1A1A1A !important;
 }
 
 /* Chat input & bubbles */
@@ -110,7 +97,6 @@ input, textarea, [data-testid="stChatInput"] textarea {
     border: 1px solid #E0E0E0 !important;
     border-radius: 12px !important;
     background-color: #FFFFFF !important;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
 }
 [data-testid="stChatInput"] div {
     background-color: #FFFFFF !important;
