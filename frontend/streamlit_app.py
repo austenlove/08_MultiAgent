@@ -126,8 +126,8 @@ input, textarea, [data-testid="stChatInput"] textarea {
 }
 
 /* Tables */
-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; border-radius: 8px; overflow: hidden; }
-th { background: #000000 !important; color: #FFFFFF !important; padding: 14px; text-align: left; }
+table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; border-radius: 8px; overflow: hidden; border: 1px solid #EEEEEE; }
+th { background-color: #F8F9FA !important; color: #000000 !important; padding: 12px; text-align: left; border-bottom: 2px solid #EEEEEE; }
 td { padding: 12px; border: 1px solid #F0F0F0; color: #333333 !important; }
 tr:nth-child(even) { background-color: #FAFAFA; }
 
@@ -515,7 +515,8 @@ def render_chat() -> None:
                     st.markdown(m["content"], unsafe_allow_html=True)
 
         # 2. 채팅 입력창 (항상 하단에 위치)
-        if prompt := st.chat_input("문서에 대해 궁금한 점을 물어보세요"):
+        placeholder = "문서에 대해 궁금한 점을 물어보세요 (예: '이 문서의 핵심 요약은?', '주요 기술 스택은?')"
+        if prompt := st.chat_input(placeholder):
             # 사용자 메시지 즉시 표시
             with chat_container:
                 with st.chat_message("user"):
